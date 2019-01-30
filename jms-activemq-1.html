@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <title>Choway Blog</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="七尘的个人博客">
+    <meta name="keywords" content="Java、Python、SpringBoot、SpringCloud、Hibernate、Mybatis">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/kratos.diy.css">
+    <link rel="stylesheet" href="/css/layer.min.css">
+    <link rel="stylesheet" href="/css/superfish.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/hoverIntent.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.qrcode.min.js"></script>
+    <script src="/js/jquery.stellar.min.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/kratos.diy.js"></script>
+    <script src="/js/kratos.js"></script>
+    <script src="/js/layer.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/superfish.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+
+<body data-spy="scroll" data-target=".scrollspy">
+    <div id="kratos-wrapper">
+        <div id="kratos-page">
+            <div id="kratos-header">
+    <header id="kratos-header-section">
+        <div class="container">
+            <div class="nav-header">
+                <a href="#" class="js-kratos-nav-toggle kratos-nav-toggle"><i></i></a>
+                <h1 id="kratos-logo"><a href="/">Choway Blog</a></h1>
+                
+                <nav id="kratos-menu-wrap">
+                  <ul id="kratos-primary-menu" class="sf-menu">
+                  
+                    <li>
+                      <a href="/categories/Java/">Java</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/categories/DevOps/">DevOps</a>
+                    </li>
+                  
+                  </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="kratos-start kratos-hero-2 kratos-post-header">
+    <div class="kratos-overlay kratos-post" style="background:#222831"></div>
+</div>
+            
+            <div id="kratos-blog-post" style="background:#f5f5f5;">
+                <div class="container">
+                    <div class="row">
+                        <section id="main" class="col-md-8">
+                            <!--  文章模板  -->
+<article>
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            <h1 class="kratos-entry-title text-center">JMS 之 ActiveMQ</h1>
+            <div class="kratos-post-meta text-center">
+                <span>
+                    <i class="fa fa-commenting-o"></i> choway
+                    <i class="fa fa-calendar"></i> 2018-12-29 01:55:10
+                    <i class="fa fa-eye"></i> 
+                    
+                        <a class="category-link" href="/categories/DevOps/">DevOps</a><a class="category-link" href="/categories/DevOps/ActiveMQ/">ActiveMQ</a>
+                    
+                </span>
+            </div>
+        </header>
+        <div class="kratos-post-content">
+            <p>Apache ActiveMQ 是一款开源的，基于 JMS（Java Message Service） 标准的消息中间件（Message Oriented Middleware，MOM），实现 JMS Provider，用来实现高可用、高性能、可伸缩、易用和安全的企业级面向消息服务的系统。</p>
+<a id="more"></a>
+<h2 id="JMS-消息结构"><a href="#JMS-消息结构" class="headerlink" title="JMS 消息结构"></a>JMS 消息结构</h2><p>JMS 消息由消息头、消息属性、消息体组成；<br><strong>消息头</strong><br><strong>Message ID</strong> 消息的唯一标识；<br><strong>Destination</strong> 消息发送的目的地，Queue 和 Topic；<br><strong>DeliveryMode</strong> 传送模式：持久模式和非持久模式；持久化的消息在jms provider出现故障后不会消失，它会在服务器恢复之后再次传递；非持久化的消息最多被传送一次，服务器出现故障后，该消息永远消失；<br><strong>Expiration</strong> 设置为0表示消息永不过期；<br><strong>Priority</strong> 消息优先级：0-4是普通消息，5-9是加急消息，默认是4；<br><strong>Timestamp</strong> 消息发送的时间戳；<br><strong>Correlation ID</strong> 用来连接到另外一个消息，常用在回复消息中连接到原消息；<br><strong>Reply To</strong> 设置回复本消息的消息目的地；<br><strong>Type</strong> 消息类型；<br><strong>Redelivered</strong> 是否重新传递：true 或 false；</p>
+<h2 id="ActiveMQ-消息存储"><a href="#ActiveMQ-消息存储" class="headerlink" title="ActiveMQ 消息存储"></a>ActiveMQ 消息存储</h2><p>ActiveMQ 提供了一个插件式的消息存储，主要实现：</p>
+<ol>
+<li>基于文件存储；</li>
+<li>KahaDB 消息存储：提供了容量提升和恢复能力，是现在默认的存储方式；</li>
+<li>JDBC 消息存储；</li>
+<li>Memory 消息存储：基于内存存储；</li>
+</ol>
+
+        </div>
+        <footer class="kratos-entry-footer clearfix">
+            <div class="post-like-donate text-center clearfix" id="post-like-donate">
+
+            </div>
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                    
+                        <a class="tag-link" href="/tags/activemq/">activemq</a><a class="tag-link" href="/tags/jms/">jms</a>
+                    
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div class="kratos-hentry kratos-copyright text-center clearfix">
+        <img alt="知识共享许可协议" src="/images/licenses.png">
+        <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+    </div>
+
+    
+    <nav class="navigation post-navigation clearfix" role="navigation">
+        
+        <div class="nav-previous clearfix">
+            <a title="Java 虚拟机之垃圾回收器" href="/Java-jvm-gc.html">&lt; 上一篇</a>
+        </div>
+        
+        
+        <div class="nav-next">
+            <a title="springboot redis 实现 session 共享" href="/springboot-redis-session.html">下一篇 &gt;</a>
+        </div>
+        
+    
+    
+</nav></article>
+                        </section>
+
+                        <aside id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm scrollspy">
+                            <div id="sidebar">
+    <aside id="kratos_about-2" class="widget amadeus_about clearfix">
+        <div class="photo-background">
+            <div class="photo-background" style="background:url(/images/about_bg.jpg) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;"></div>
+        </div>
+        <div class="photo-wrapper clearfix">
+            <div class="photo-wrapper-tip text-center">
+                <a href="/"><img class="about-photo" src="/images/about_me.jpg"></a>
+            </div>
+        </div>
+        <div class="textwidget">
+            <p style="text-align: center;font-weight:400;">Choway Blog<br>七尘的个人博客</p>
+        </div>
+    </aside>
+
+    
+    <aside class="widget clearfix">
+        <h4 class="widget-title">文章目录</h4>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JMS-消息结构"><span class="toc-text">JMS 消息结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ActiveMQ-消息存储"><span class="toc-text">ActiveMQ 消息存储</span></a></li></ol>
+    </aside>
+    
+
+    
+    <aside class="widget clearfix">
+        <h4 class="widget-title">文章分类</h4>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/ActiveMQ/">ActiveMQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/Docker/">Docker</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/SpringBoot/">SpringBoot</a></li></ul></li></ul>
+    </aside>
+    
+
+    
+    <aside class="widget clearfix">
+        <h4 class="widget-title">标签聚合</h4>
+        <div class="tag_clouds">
+            <a class="tag-link" href="/tags/activemq/">activemq</a><a class="tag-link" href="/tags/centos/">centos</a><a class="tag-link" href="/tags/docker/">docker</a><a class="tag-link" href="/tags/hotspot/">hotspot</a><a class="tag-link" href="/tags/java/">java</a><a class="tag-link" href="/tags/jms/">jms</a><a class="tag-link" href="/tags/jvm/">jvm</a><a class="tag-link" href="/tags/redis/">redis</a><a class="tag-link" href="/tags/springboot/">springboot</a>
+        </div>
+    </aside>
+    
+
+</div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+    <div id="footer">
+        <div class="cd-tool visible-lg text-center">
+            <a class="cd-top cd-is-visible cd-fade-out"><span class="fa fa-chevron-up"></span></a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <p class="kratos-social-icons">
+                        <a target="_blank" rel="nofollow" href="https://github.com/choway"><i class="fa fa-github"></i></a>
+                    </p>
+                    <p>Copyright 2019 <a href="/">Choway Blog</a>. All Rights Reserved.
+                </p></div>
+            </div>
+        </div>
+    </div>
+</footer>
+        </div>
+    </div>
+</body>
+</html>
